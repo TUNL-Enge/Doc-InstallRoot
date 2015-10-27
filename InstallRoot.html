@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Installing Root6 on Ubuntu-type linux</title>
+<!-- 2015-10-27 Tue 12:39 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Richard Longland" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Installing Root6 on Ubuntu-type linux</h1>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This short guide should get you set up for a relatively pain free
+root6 installation. It used cmake for the installation, which
+turns out to be quite convenient!
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Prerequisites</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Install from packages using this command:
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo apt-get install &lt;package_name&gt;
+</pre>
+</div>
+<ul class="org-ul">
+<li>emacs
+</li>
+<li>build-essential
+</li>
+<li>libgsl0-dev
+</li>
+<li>libxerces-c-dev
+</li>
+<li>libcoin80-dev
+</li>
+<li>libglu1-mesa-dev
+</li>
+<li>cmake
+</li>
+<li>libexpat1-dev
+</li>
+<li>libinventor1
+</li>
+<li>magit
+</li>
+<li>libxft-dev
+</li>
+<li>libxml2-dev
+</li>
+<li>libmotif-dev
+</li>
+<li>libqt4-dev
+</li>
+<li>libqt4-opengl-dev
+</li>
+<li>tk
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Preparation</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>I like to put things like geant4 and root in the /opt
+directory. It makes them system-wide and easier to separate from
+the other junk in your home folder.
+</li>
+<li>You need to change the privileges to allow your user (<code>longland</code>
+in my case)
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #b0c4de;">cd</span> /opt
+sudo mkdir root
+chown -R longland:longland root
+</pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Download the root code</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>I'm using version 6.04.06
+</li>
+<li>Get it <a href="https://root.cern.ch/download/root_v6.04.06.source.tar.gz">here</a>
+</li>
+<li>Unzip. We'll put it in that <code>opt</code> directory we made earlier
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #b0c4de;">cd</span> /opt/root
+mv downloaded-root-file.tar.gz .
+tar -xzvf downloaded-root-file.tar.gz
+</pre>
+</div>
+</li>
+<li>This should have created a <code>root-6.04.06</code> folder. I'll rename it:
+<div class="org-src-container">
+
+<pre class="src src-sh">mv root-6.04.06 root-6.04.06-src
+</pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Build</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>Here's how it'll work
+<ol class="org-ol">
+<li>Make a build directory
+</li>
+<li>Use cmake to prepare the build directory
+</li>
+<li>Build root (compile it)
+</li>
+<li>Install the useful stuff in <i>yet another</i> folder - the install
+directory.
+</li>
+</ol>
+</li>
+<li>So: let's do steps 1 and 2
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir root-6.04.06-build/
+<span style="color: #b0c4de;">cd</span> root-6.04.06-build/
+cmake -DCMAKE_INSTALL_PREFIX=/opt/root/root-6.04.06-install/<span style="color: #ffa07a;">\</span>
+      ../root-6.04.06-src
+</pre>
+</div>
+</li>
+<li>Note: This command told root to install the compiled code in our
+install directory
+(<code>-DCMAKE_INSTALL_PREFIX=/opt/root/root-6.04.06-install</code>)
+For more build options, see the root documentation
+</li>
+<li>Almost there. Now's time to compile (step 3 above):
+<div class="org-src-container">
+
+<pre class="src src-sh">make -j6
+</pre>
+</div>
+<p>
+I'm compiling with 6 cores of my processor. You can choose less!
+Time for coffee and <a href="https://xkcd.com/303/">games</a>!
+</p>
+</li>
+<li>Install the compiled code in the <code>root-6.04.06-install</code>
+directory (step 4 above)
+<div class="org-src-container">
+
+<pre class="src src-sh">make install
+</pre>
+</div>
+</li>
+<li>That's it! root is installed!
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Wrapping Up</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+You just need to tell linux where to find root now. Root does the
+hard work for you here. Just put the following in your <code>.bashrc</code>
+file:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #b0c4de;">source</span> /opt/root/root-6.04.06-install/bin/thisroot.sh
+</pre>
+</div>
+<p>
+Now log out, log back in, and get to work!
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2015-10-27</p>
+<p class="author">Author: Richard Longland</p>
+<p class="date">Created: 2015-10-27 Tue 12:39</p>
+<p class="creator">Emacs 24.3.1 (Org mode 8.2.4)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

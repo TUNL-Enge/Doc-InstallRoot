@@ -1,0 +1,101 @@
+#+TITLE: Installing Root6 on Ubuntu-type linux
+#+DATE: <2015-10-27 Fri>
+#+AUTHOR: Richard Longland
+#+EMAIL: longland@X1Carbon
+#+OPTIONS: ':nil *:t -:t ::t <:t H:2 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:nil date:t e:t email:nil
+#+OPTIONS: f:t inline:t num:t p:nil pri:nil stat:t tags:not-in-toc
+#+OPTIONS: tasks:t tex:t timestamp:t toc:nil todo:t |:t
+#+CREATOR: Emacs 24.3.1 (Org mode 8.2.4)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+* Introduction
+  This short guide should get you set up for a relatively pain free
+  root6 installation. It used cmake for the installation, which
+  turns out to be quite convenient!
+* Prerequisites
+  - Install from packages using this command:
+    #+BEGIN_SRC sh
+      sudo apt-get install <package_name>
+    #+END_SRC
+    - emacs
+    - build-essential
+    - libgsl0-dev
+    - libxerces-c-dev
+    - libcoin80-dev
+    - libglu1-mesa-dev
+    - cmake
+    - libexpat1-dev
+    - libinventor1
+    - magit
+    - libxft-dev
+    - libxml2-dev
+    - libmotif-dev
+    - libqt4-dev
+    - libqt4-opengl-dev
+    - tk
+* Preparation
+  - I like to put things like geant4 and root in the /opt
+    directory. It makes them system-wide and easier to separate from
+    the other junk in your home folder.
+  - You need to change the privileges to allow your user (~longland~
+    in my case)
+    #+BEGIN_SRC sh
+      cd /opt
+      sudo mkdir root
+      chown -R longland:longland root
+    #+END_SRC
+* Download the root code
+  - I'm using version 6.04.06
+  - Get it [[https://root.cern.ch/download/root_v6.04.06.source.tar.gz][here]]
+  - Unzip. We'll put it in that ~opt~ directory we made earlier
+    #+BEGIN_SRC sh
+      cd /opt/root
+      mv downloaded-root-file.tar.gz .
+      tar -xzvf downloaded-root-file.tar.gz
+    #+END_SRC
+  - This should have created a ~root-6.04.06~ folder. I'll rename it:
+    #+BEGIN_SRC sh
+      mv root-6.04.06 root-6.04.06-src
+    #+END_SRC
+* Build
+  - Here's how it'll work
+    1) Make a build directory
+    2) Use cmake to prepare the build directory
+    3) Build root (compile it)
+    4) Install the useful stuff in /yet another/ folder - the install
+       directory.
+  - So: let's do steps 1 and 2
+    #+BEGIN_SRC sh
+      mkdir root-6.04.06-build/
+      cd root-6.04.06-build/
+      cmake -DCMAKE_INSTALL_PREFIX=/opt/root/root-6.04.06-install/\
+            ../root-6.04.06-src      
+    #+END_SRC
+  - Note: This command told root to install the compiled code in our
+    install directory
+    (~-DCMAKE_INSTALL_PREFIX=/opt/root/root-6.04.06-install~)
+    For more build options, see the root documentation
+  - Almost there. Now's time to compile (step 3 above):
+    #+BEGIN_SRC sh
+      make -j6    
+    #+END_SRC
+    I'm compiling with 6 cores of my processor. You can choose less!
+    Time for coffee and [[https://xkcd.com/303/][games]]!
+  - Install the compiled code in the ~root-6.04.06-install~
+    directory (step 4 above)
+    #+BEGIN_SRC sh
+      make install
+    #+END_SRC
+  - That's it! root is installed!
+* Wrapping Up
+  You just need to tell linux where to find root now. Root does the
+  hard work for you here. Just put the following in your ~.bashrc~
+  file:
+  #+BEGIN_SRC sh
+  source /opt/root/root-6.04.06-install/bin/thisroot.sh
+  #+END_SRC
+  Now log out, log back in, and get to work!
