@@ -23,7 +23,7 @@
     #+END_SRC
     - emacs
     - build-essential
-    - libgsl0-dev
+    - libgsl-dev
     - libxerces-c-dev
     - libcoin80-dev
     - libglu1-mesa-dev
