@@ -73,7 +73,7 @@
       mkdir root-6.04.06-build/
       cd root-6.04.06-build/
       cmake -DCMAKE_INSTALL_PREFIX=/opt/root/root-6.04.06-install/\
-            -Dminuit2 ../root-6.04.06-src      
+            -Dminuit2=ON ../root-6.04.06-src      
     #+END_SRC
   - Note: This command told root to install the compiled code in our
     install directory
