@@ -49,17 +49,17 @@
       chown -R longland:longland root
     #+END_SRC
 * Download the root code
-  - I'm using version 6.04.06
-  - Get it [[https://root.cern.ch/download/root_v6.04.06.source.tar.gz][here]]
+  - I'm using version 6.20.04
+  - Get it [[https://root.cern.ch/download/root_v6.20.04.source.tar.gz][here]]
   - Unzip. We'll put it in that ~opt~ directory we made earlier
     #+BEGIN_SRC sh
       cd /opt/root
       mv downloaded-root-file.tar.gz .
       tar -xzvf downloaded-root-file.tar.gz
     #+END_SRC
-  - This should have created a ~root-6.04.06~ folder. I'll rename it:
+  - This should have created a ~root-6.20.04~ folder. I'll rename it:
     #+BEGIN_SRC sh
-      mv root-6.04.06 root-6.04.06-src
+      mv root-6.20.04 root-6.20.04-src
     #+END_SRC
 * Build
   - Here's how it'll work
@@ -70,14 +70,14 @@
        directory.
   - So: let's do steps 1 and 2
     #+BEGIN_SRC sh
-      mkdir root-6.04.06-build/
-      cd root-6.04.06-build/
-      cmake -DCMAKE_INSTALL_PREFIX=/opt/root/root-6.04.06-install/\
-            -Dminuit2=ON ../root-6.04.06-src      
+      mkdir root-6.20.04-build/
+      cd root-6.20.04-build/
+      cmake -DCMAKE_INSTALL_PREFIX=/opt/root/root-6.20.04-install/\
+            -Dminuit2=ON ../root-6.20.04-src      
     #+END_SRC
   - Note: This command told root to install the compiled code in our
     install directory
-    (~-DCMAKE_INSTALL_PREFIX=/opt/root/root-6.04.06-install~)
+    (~-DCMAKE_INSTALL_PREFIX=/opt/root/root-6.20.04-install~)
     For more build options, see the root documentation
   - Note: minuit2 is needed for the LENA Fraction Fitter software
   - Almost there. Now's time to compile (step 3 above):
@@ -97,6 +97,6 @@
   hard work for you here. Just put the following in your ~.bashrc~
   file:
   #+BEGIN_SRC sh
-  source /opt/root/root-6.04.06-install/bin/thisroot.sh
+  source /opt/root/root-6.20.04-install/bin/thisroot.sh
   #+END_SRC
   Now log out, log back in, and get to work!
