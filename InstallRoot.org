@@ -37,6 +37,7 @@
     - libqt4-dev
     - libqt4-opengl-dev
     - tk
+    - python-dev
 * Preparation
   - I like to put things like geant4 and root in the /opt
     directory. It makes them system-wide and easier to separate from
