@@ -51,17 +51,12 @@
     #+END_SRC
 * Download the root code
   - I'm using version 6.20.04
-  - Get it [[https://root.cern.ch/download/root_v6.20.04.source.tar.gz][here]]
-  - Unzip. We'll put it in that ~opt~ directory we made earlier
+  - Get the latest stable version using git
     #+BEGIN_SRC sh
       cd /opt/root
-      mv downloaded-root-file.tar.gz .
-      tar -xzvf downloaded-root-file.tar.gz
+      git clone --branch latest-stable --depth=1 https://github.com/root-project/root.git root_src
     #+END_SRC
-  - This should have created a ~root-6.20.04~ folder. I'll rename it:
-    #+BEGIN_SRC sh
-      mv root-6.20.04 root-6.20.04-src
-    #+END_SRC
+  - This should have created a ~root_src~ folder
 * Build
   - Here's how it'll work
     1) Make a build directory
@@ -71,23 +66,25 @@
        directory.
   - So: let's do steps 1 and 2
     #+BEGIN_SRC sh
-      mkdir root-6.20.04-build/
-      cd root-6.20.04-build/
-      cmake -DCMAKE_INSTALL_PREFIX=/opt/root/root-6.20.04-install/\
-            -Dminuit2=ON ../root-6.20.04-src      
+      mkdir root_build/
+      mkdir root_src/
+      cd root_build/
+      cmake -DCMAKE_INSTALL_PREFIX=/opt/root/root_install/\
+            -Dminuit2=ON -Dxml=ON ../root_src      
     #+END_SRC
   - Note: This command told root to install the compiled code in our
     install directory
-    (~-DCMAKE_INSTALL_PREFIX=/opt/root/root-6.20.04-install~)
+    (~-DCMAKE_INSTALL_PREFIX=/opt/root/root_install~)
     For more build options, see the root documentation
   - Note: minuit2 is needed for the LENA Fraction Fitter software
+  - Note: xml is needed for MIDAS
   - Almost there. Now's time to compile (step 3 above):
     #+BEGIN_SRC sh
       make -j6    
     #+END_SRC
     I'm compiling with 6 cores of my processor. You can choose less!
     Time for coffee and [[https://xkcd.com/303/][games]]!
-  - Install the compiled code in the ~root-6.04.06-install~
+  - Install the compiled code in the ~root_install~
     directory (step 4 above)
     #+BEGIN_SRC sh
       make install
@@ -98,6 +95,6 @@
   hard work for you here. Just put the following in your ~.bashrc~
   file:
   #+BEGIN_SRC sh
-  source /opt/root/root-6.20.04-install/bin/thisroot.sh
+  source /opt/root/root_install/bin/thisroot.sh
   #+END_SRC
   Now log out, log back in, and get to work!
